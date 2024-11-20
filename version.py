@@ -105,14 +105,15 @@ def update_task_apiv2(task_id: int, task: Task):
 
 
 
-@apiv2_router.delete("/task/{task_id}", dependencies=[Depends(validate_api_key)], status_code=204)
+@apiv2_router.delete("/task/{task_id}", dependencies=[Depends(validate_api_key)], status_code=200)
 def delete_task_apiv2(task_id: int):
     task = find_task(apiv2_db, task_id)
     if not task:
         raise HTTPException(status_code=404, detail=f"Task with ID {task_id} not found.")
     
     apiv2_db.remove(task)
-    return {"message": "Task successfully deleted."}  # No content response
+    return {"message": "Task successfully deleted."}  # You can include a message here
+
 
 
 # Main Application
