@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
-API_KEYY = os.getenv("API_KEY")
+API_KEY = os.getenv("API_KEY")
 
 # Validate if the API_KEY is set in the .env file
-if not API_KEYY:
+if not API_KEY:
     raise RuntimeError("API_KEY environment variable is not set in the .env file.")
 
 # Task Databases for Versioning
@@ -27,7 +27,7 @@ def find_task(task_db, task_id: int):
 
 # Helper Function for API Key Validation
 def validate_api_key(x_api_key: str = Header(None)):
-    if not x_api_key or x_api_key != API_KEYY:
+    if not x_api_key or x_api_key != API_KEY:
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing API key.")
     return True
 
