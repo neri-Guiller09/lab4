@@ -12,7 +12,7 @@ load_dotenv()
 app = FastAPI()
 
 # Get the API Key from environment variables
-API_KEY = os.getenv("LAB4_API_KEY")
+API_KEY = os.getenv("API-KEY")
 
 # Check if API key is provided
 def verify_api_key(request: Request):
@@ -28,7 +28,7 @@ task_db = [
 
 # Define second task database (task_db2)
 task_db2 = [
-    {"task_id": 1, "task_title": "Science Project", "task_desc": "Complete the science project", "is_finished": False}
+    {"task_id": 1, "task_title": "Laboratory Activity", "task_desc": "Create Lab Act 2", "is_finished": False}
 ]
 
 # Task model for input validation
@@ -53,7 +53,7 @@ def create_task_v1(task: Task, api_key: str = Depends(verify_api_key)):
     new_task = task.dict()
     new_task["task_id"] = task_id
     task_db.append(new_task)
-    return JSONResponse(status_code=201, content={"message": "Task successfully created.", "task": new_task})
+    return JSONResponse(status_code=201, content={"message": "Task created successfully.", "task": new_task})
 
 @apiv1.patch("/database/{task_id}", tags=["v1"])
 def update_task_v1(task_id: int, task: Task, api_key: str = Depends(verify_api_key)):
@@ -87,7 +87,7 @@ def create_task_v2(task: Task, api_key: str = Depends(verify_api_key)):
     new_task = task.dict()
     new_task["task_id"] = task_id
     task_db2.append(new_task)
-    return JSONResponse(status_code=201, content={"message": "Task successfully created.", "task": new_task})
+    return JSONResponse(status_code=201, content={"message": "Task created successfully.", "task": new_task})
 
 @apiv2.patch("/database/{task_id}", tags=["v2"])
 def update_task_v2(task_id: int, task: Task, api_key: str = Depends(verify_api_key)):
@@ -111,7 +111,7 @@ app.include_router(apiv2, prefix="/apiv2", tags=["v2"])
 
 @app.get("/", tags=["root"])
 def read_root():
-    return {"message": "Welcome to the API. Use /apiv1 or /apiv2 for versioned endpoints."}
+    return {"message": "Welcome to the API. Access versioned endpoints with /apiv1 or /apiv2."}
 
 @app.get("/health")
 def health_check():
