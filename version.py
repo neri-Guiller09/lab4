@@ -25,18 +25,12 @@ apiv2_db = [
 def find_task(task_db, task_id: int):
     return next((task for task in task_db if task["task_id"] == task_id), None)
 
-def validate_api_key(request: Request, x_api_key: str = Header(None)):
-    # First, check if API key is in the header
-    if x_api_key and x_api_key == API_KEY:
-        return True
-    
-    # If not in header, check the query parameters
-    query_api_key = request.query_params.get('x-api-key')
-    if query_api_key and query_api_key == API_KEY:
-        return True
-    
-    # If API key is not found in either header or query params, raise Unauthorized
-    raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing API key.")
+def validate_api_key(x_api_key: str = Header("x-api-key")):
+    if not x_api_key or x_api_key != API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing API key.")
+    return True
+
+
 
 # Task Model for Pydantic Validation
 class Task(BaseModel):
