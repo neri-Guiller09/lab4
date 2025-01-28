@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Get the API key from environment variables
-API_KEY = os.getenv("API_KEY")
+API_KEY = os.getenv("API-KEY")
 
 # Ensure that the API key is loaded from the environment
 if not API_KEY:
