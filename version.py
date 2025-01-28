@@ -27,7 +27,7 @@ def find_task(task_db, task_id: int):
 
 # Helper Function for API Key Validation
 def validate_api_key(x_api_key: str = Header(None)):
-    if not x_api_key or x_api_key != API_KEY:
+    if not x_api_key or x_api_key != neripogi:
         raise HTTPException(status_code=401, detail="Unauthorized: Invalid or missing API key.")
     return True
 
