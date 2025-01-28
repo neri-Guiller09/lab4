@@ -26,6 +26,11 @@ task_db = [
     {"task_id": 1, "task_title": "Laboratory Activity", "task_desc": "Create Lab Act 2", "is_finished": False}
 ]
 
+# Define second task database (task_db2)
+task_db2 = [
+    {"task_id": 1, "task_title": "Science Project", "task_desc": "Complete the science project", "is_finished": False}
+]
+
 # Task model for input validation
 class Task(BaseModel):
     task_title: str
@@ -66,27 +71,27 @@ def delete_task_v1(task_id: int, api_key: str = Depends(verify_api_key)):
     task_db.remove(task)
     return JSONResponse(status_code=204)
 
-# APIV2 Router (Version 2)
+# APIV2 Router (Version 2) - Now using task_db2
 apiv2 = APIRouter()
 
 @apiv2.get("/database/{task_id}", tags=["v2"])
 def get_task_v2(task_id: int, api_key: str = Depends(verify_api_key)):
-    task = next((task for task in task_db if task["task_id"] == task_id), None)
+    task = next((task for task in task_db2 if task["task_id"] == task_id), None)
     if not task:
         raise HTTPException(status_code=404, detail=f"Task with ID {task_id} not found.")
     return task
 
 @apiv2.post("/database", tags=["v2"])
 def create_task_v2(task: Task, api_key: str = Depends(verify_api_key)):
-    task_id = len(task_db) + 1
+    task_id = len(task_db2) + 1
     new_task = task.dict()
     new_task["task_id"] = task_id
-    task_db.append(new_task)
+    task_db2.append(new_task)
     return JSONResponse(status_code=201, content={"message": "Task successfully created.", "task": new_task})
 
 @apiv2.patch("/database/{task_id}", tags=["v2"])
 def update_task_v2(task_id: int, task: Task, api_key: str = Depends(verify_api_key)):
-    task_db_entry = next((task for task in task_db if task["task_id"] == task_id), None)
+    task_db_entry = next((task for task in task_db2 if task["task_id"] == task_id), None)
     if not task_db_entry:
         raise HTTPException(status_code=404, detail=f"Task with ID {task_id} not found.")
     task_db_entry.update(task.dict())
@@ -94,10 +99,10 @@ def update_task_v2(task_id: int, task: Task, api_key: str = Depends(verify_api_k
 
 @apiv2.delete("/database/{task_id}", tags=["v2"])
 def delete_task_v2(task_id: int, api_key: str = Depends(verify_api_key)):
-    task = next((task for task in task_db if task["task_id"] == task_id), None)
+    task = next((task for task in task_db2 if task["task_id"] == task_id), None)
     if not task:
         raise HTTPException(status_code=404, detail=f"Task with ID {task_id} not found.")
-    task_db.remove(task)
+    task_db2.remove(task)
     return JSONResponse(status_code=204)
 
 # Include the routers in the main app
