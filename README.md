@@ -1,7 +1,3 @@
-# FastAPI API Development with JSON Handling and Versioning
-
-## Overview
-
 This repository contains an API developed using FastAPI. The API provides endpoints for managing a To-Do List, including versioning, authentication, and HTTP exception handling. The implementation follows best practices in API development, including environment variable management.
 
 ## Features
