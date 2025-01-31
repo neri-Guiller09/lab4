@@ -100,7 +100,7 @@ You can test the API using the built-in Swagger UI provided by FastAPI:
 
 ## Author
 
-[[Guiller Neri] - [Y](https://github.com/yourusername)[Profile](https://github.com/yourusername)](https://github.com/neri-Guiller09)
+[[Guiller Neri] - [](https://github.com/yourusername)[Profile](https://github.com/yourusername)](https://github.com/neri-Guiller09)
 
 ## Repository Link
 
